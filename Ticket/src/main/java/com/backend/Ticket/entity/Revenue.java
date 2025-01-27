@@ -1,9 +1,6 @@
 package com.backend.Ticket.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Revenue {
@@ -11,14 +8,17 @@ public class Revenue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String stationName;
+
+    @Column(nullable = false, unique = true)
+    private Long stationId;
+
     private double revenue;
 
     // Default constructor
     public Revenue() {
     }
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -27,12 +27,12 @@ public class Revenue {
         this.id = id;
     }
 
-    public String getStationName() {
-        return stationName;
+    public Long getStationId() {
+        return stationId;
     }
 
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
+    public void setStationId(Long stationId) {
+        this.stationId = stationId;
     }
 
     public double getRevenue() {

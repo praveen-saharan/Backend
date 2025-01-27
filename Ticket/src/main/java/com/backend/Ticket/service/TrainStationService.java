@@ -1,6 +1,7 @@
 package com.backend.Ticket.service;
 
 import com.backend.Ticket.entity.TrainStation;
+import com.backend.Ticket.repository.TicketRepository;
 import com.backend.Ticket.repository.TrainStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,10 @@ public class TrainStationService {
     public void deleteTrainStation(Long id) {
         trainStationRepository.deleteById(id);
     }
+
+     // Get sum of revenue of all the stations
+     public Double getTotalRevenue() {
+        System.out.println("command run successfully");
+         return trainStationRepository.findTotalRevenue();
+     }
 }

@@ -36,6 +36,4 @@ public class TrainStationController {
     public Double getTotalFareAmount() {
         return trainStationService.getTotalFareAmount();
     }
-
-
 }

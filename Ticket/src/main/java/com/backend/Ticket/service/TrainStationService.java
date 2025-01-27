@@ -61,9 +61,4 @@ public class TrainStationService {
         trainStationRepository.deleteById(id);
     }
 
-     // Get sum of revenue of all the stations
-//     public Double getTotalRevenue() {
-//        System.out.println("command run successfully");
-//         return trainStationRepository.findTotalRevenue();
-//     }
 }

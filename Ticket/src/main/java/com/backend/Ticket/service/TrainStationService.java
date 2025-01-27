@@ -20,6 +20,11 @@ public class TrainStationService {
         return trainStationRepository.save(trainStation);
     }
 
+    // Add multiple train stations
+    public List<TrainStation> addMultipleTrainStations(List<TrainStation> trainStations) {
+        return trainStationRepository.saveAll(trainStations);
+    }
+
     // Get all train stations
     public List<TrainStation> getAllTrainStations() {
         return trainStationRepository.findAll();

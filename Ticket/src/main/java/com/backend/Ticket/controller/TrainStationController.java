@@ -22,6 +22,11 @@ public class TrainStationController {
         return trainStationService.addTrainStation(trainStation);
     }
 
+    @PostMapping("/bulk")
+    public List<TrainStation> createMultipleTrainStations(@RequestBody List<TrainStation> trainStations) {
+        return trainStationService.addMultipleTrainStations(trainStations);
+    }
+
     // Get all train stations
     @GetMapping
     public List<TrainStation> getAllTrainStations() {

@@ -32,5 +32,10 @@ public class TrainStationController {
         return trainStationService.getAllTrainStations();
     }
 
+    @GetMapping("/total-fare")
+    public Double getTotalFareAmount() {
+        return trainStationService.getTotalFareAmount();
+    }
+
 
 }

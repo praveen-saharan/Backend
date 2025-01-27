@@ -33,8 +33,8 @@ public class TrainStationController {
         return trainStationService.getAllTrainStations();
     }
 
-    @GetMapping("/total-revenue")
-    public Double getTotalRevenue() {
-        return trainStationService.getTotalRevenue();
-    }
+//    @GetMapping("/total-revenue")
+//    public Double getTotalRevenue() {
+//        return trainStationService.getTotalRevenue();
+//    }
 }

@@ -55,8 +55,8 @@ public class TrainStationService {
     }
 
      // Get sum of revenue of all the stations
-     public Double getTotalRevenue() {
-        System.out.println("command run successfully");
-         return trainStationRepository.findTotalRevenue();
-     }
+//     public Double getTotalRevenue() {
+//        System.out.println("command run successfully");
+//         return trainStationRepository.findTotalRevenue();
+//     }
 }

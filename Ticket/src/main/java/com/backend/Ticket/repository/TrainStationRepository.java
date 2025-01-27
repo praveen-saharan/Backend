@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface TrainStationRepository extends JpaRepository<TrainStation, Long> {
     // Custom query methods (if any) can go here
-    @Query("SELECT SUM(p.fareAmount) FROM train_station p")
-    Double findTotalRevenue();
+//    @Query("SELECT SUM(p.fareAmount) FROM train_station p")
+//    Double findTotalRevenue();
 }

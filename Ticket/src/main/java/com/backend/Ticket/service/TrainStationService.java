@@ -30,6 +30,13 @@ public class TrainStationService {
         return trainStationRepository.findAll();
     }
 
+    public Double getTotalFareAmount() {
+        List<TrainStation> stations = trainStationRepository.findAll();
+        return stations.stream()
+                .mapToDouble(TrainStation::getFareAmount)
+                .sum();
+    }
+
     // Get a train station by ID
     public Optional<TrainStation> getTrainStationById(Long id) {
         return trainStationRepository.findById(id);

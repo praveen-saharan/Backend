@@ -1,7 +1,6 @@
 package com.backend.Ticket.controller;
 
 import com.backend.Ticket.entity.TrainStation;
-import com.backend.Ticket.service.TicketService;
 import com.backend.Ticket.service.TrainStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +32,10 @@ public class TrainStationController {
         return trainStationService.getAllTrainStations();
     }
 
-//    @GetMapping("/total-revenue")
-//    public Double getTotalRevenue() {
-//        return trainStationService.getTotalRevenue();
-//    }
+    @GetMapping("/total-fare")
+    public Double getTotalFareAmount() {
+        return trainStationService.getTotalFareAmount();
+    }
+
+
 }

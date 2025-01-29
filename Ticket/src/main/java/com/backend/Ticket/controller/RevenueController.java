@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/revenue")
 public class RevenueController {
 

@@ -1,13 +1,14 @@
 package com.backend.Ticket.service;
 
 import com.backend.Ticket.entity.Transactions;
+import com.backend.Ticket.exceptions.RecordNotFoundException;
 import com.backend.Ticket.repository.TransactionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionsService {
@@ -15,25 +16,25 @@ public class TransactionsService {
     @Autowired
     private TransactionsRepository transactionsRepository;
 
-    // Add a new transaction
+    @Autowired
+    private TrainStationService trainStationService;
 
+    // Service Method to Add a Transaction
     public Transactions addTransaction(Transactions transaction) {
-        // Ensure the transaction date and time is set to the current time
-        transaction.setTransactionDateTime(LocalDateTime.now());
         return transactionsRepository.save(transaction);
     }
 
-    // Get all transactions
+    // Service Method to Get All Transactions
     public List<Transactions> getAllTransactions() {
         return transactionsRepository.findAll();
     }
 
-    // Get a transaction by ID
+    // Service Method to Get a Transaction by ID
     public Optional<Transactions> getTransactionById(Long transactionId) {
         return transactionsRepository.findById(transactionId);
     }
 
-    // Update an existing transaction
+    // Service Method to Update a Transaction
     public Transactions updateTransaction(Long transactionId, Transactions transactionDetails) {
         Optional<Transactions> existingTransaction = transactionsRepository.findById(transactionId);
         if (existingTransaction.isPresent()) {
@@ -50,7 +51,7 @@ public class TransactionsService {
         }
     }
 
-    // Delete a transaction by ID
+    // Service Method to Delete a Transaction
     public void deleteTransaction(Long transactionId) {
         transactionsRepository.deleteById(transactionId);
     }
@@ -68,5 +69,16 @@ public class TransactionsService {
     // Get all transactions within a date range (custom method)
     public List<Transactions> getTransactionsWithinDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         return transactionsRepository.findByTransactionDateTimeBetween(startDate, endDate);
+    }
+
+    // Search for transactions by passenger last name
+    public List<Transactions> searchByPassengerLastName(String lastName) {
+        List<Transactions> transactions = transactionsRepository.findByUserLastnameIgnoreCase(lastName);
+
+        if (transactions.isEmpty()) {
+            throw new RecordNotFoundException("Passenger name " + lastName + " not found! Please try another name.");
+        }
+
+        return transactions;
     }
 }

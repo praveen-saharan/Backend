@@ -1,6 +1,5 @@
 package com.backend.Ticket;
 
-import com.backend.Ticket.service.CardValidationService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

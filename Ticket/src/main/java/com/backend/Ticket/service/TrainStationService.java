@@ -64,4 +64,22 @@ public class TrainStationService {
         TrainStation trainStation = trainStationRepository.findById(stationId).orElse(null);
         return trainStation != null ? trainStation.getStationName() : "Unknown";
     }
+
+    /**
+     * Get the fare amount based on the destination name.
+     * @param destinationName the name of the destination station.
+     * @return the fare amount for the specified destination, or null if not found.
+     */
+    public double getFareAmountByStationName(String stationName) {
+        // Find the train station by station name
+        TrainStation station = trainStationRepository.findByStationName(stationName);
+
+        if (station != null) {
+            return station.getFareAmount();
+        } else {
+            // Handle the case where no station is found
+            throw new RuntimeException("Station with name " + stationName + " not found.");
+        }
+    }
+
 }

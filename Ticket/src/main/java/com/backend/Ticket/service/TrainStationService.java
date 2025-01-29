@@ -36,6 +36,13 @@ public class TrainStationService {
                 .sum();
     }
 
+    public Double getDuration() {
+        List<TrainStation> stations = trainStationRepository.findAll();
+        return stations.stream()
+                .mapToDouble(TrainStation::getDuration)
+                .sum();
+    }
+
     // Get a train station by ID
     public Optional<TrainStation> getTrainStationById(Long id) {
         return trainStationRepository.findById(id);
@@ -64,4 +71,5 @@ public class TrainStationService {
         TrainStation trainStation = trainStationRepository.findById(stationId).orElse(null);
         return trainStation != null ? trainStation.getStationName() : "Unknown";
     }
+
 }

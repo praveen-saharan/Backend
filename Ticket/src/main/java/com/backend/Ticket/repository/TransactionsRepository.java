@@ -18,4 +18,8 @@ public interface TransactionsRepository extends JpaRepository<Transactions, Long
 
     // Find transactions within a specific date range
     List<Transactions> findByTransactionDateTimeBetween(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Transactions> findByTrainStationIdAndTransactionDateTimeBetween(Long stationId, LocalDateTime startOfDay, LocalDateTime endOfDay);
+
+    List<Transactions> findByUserLastnameIgnoreCase(String lastName);
 }

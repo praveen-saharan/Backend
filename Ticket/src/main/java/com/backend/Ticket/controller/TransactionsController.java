@@ -1,14 +1,17 @@
 package com.backend.Ticket.controller;
 
 import com.backend.Ticket.entity.Transactions;
+import com.backend.Ticket.exceptions.RecordNotFoundException;
 import com.backend.Ticket.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -20,18 +23,20 @@ public class TransactionsController {
     private TransactionsService transactionsService;
 
     // Create a new transaction
-    @PostMapping
+    @PostMapping("/add-transaction")
     public ResponseEntity<Transactions> createTransaction(@RequestBody Transactions transaction) {
         Transactions savedTransaction = transactionsService.addTransaction(transaction);
         return ResponseEntity.ok(savedTransaction);
     }
 
+
     // Get all transactions
-    @GetMapping
+    @GetMapping("/all-transactions")
     public ResponseEntity<List<Transactions>> getAllTransactions() {
         List<Transactions> transactions = transactionsService.getAllTransactions();
         return ResponseEntity.ok(transactions);
     }
+
 
     // Get a transaction by ID
     @GetMapping("/{id}")
@@ -40,6 +45,7 @@ public class TransactionsController {
         return transaction.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
 
     // Update an existing transaction
     @PutMapping("/{id}")
@@ -52,6 +58,7 @@ public class TransactionsController {
         }
     }
 
+
     // Delete a transaction by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
@@ -62,6 +69,7 @@ public class TransactionsController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     // Get transactions by user firstname
     @GetMapping("/user/{firstname}")
@@ -87,6 +95,17 @@ public class TransactionsController {
             return ResponseEntity.ok(transactions);
         } catch (DateTimeParseException e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    // Search for passenger by last name
+    @GetMapping("/search-passenger")
+    public ResponseEntity<List<Transactions>> searchPassenger(@RequestParam("lastname") String lastName) {
+        try {
+            List<Transactions> transactions = transactionsService.searchByPassengerLastName(lastName);
+            return ResponseEntity.ok(transactions);
+        } catch (RecordNotFoundException e) {
+            return ResponseEntity.status(404).body(null); // Return 404 when not found
         }
     }
 }

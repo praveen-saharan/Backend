@@ -2,16 +2,15 @@ package com.backend.Ticket.controller;
 
 import com.backend.Ticket.entity.Transactions;
 import com.backend.Ticket.exceptions.RecordNotFoundException;
+import com.backend.Ticket.service.TrainStationService;
 import com.backend.Ticket.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -22,12 +21,41 @@ public class TransactionsController {
     @Autowired
     private TransactionsService transactionsService;
 
-    // Create a new transaction
+    @Autowired
+    private CardValidationService cardValidationService;
+
+    @Autowired TrainStationService trainStationService;
+
+    // Create a new transaction after validating card details
     @PostMapping("/add-transaction")
-    public ResponseEntity<Transactions> createTransaction(@RequestBody Transactions transaction) {
+    public ResponseEntity<String> createTransaction(@RequestBody Transactions transaction) {
+        // Validate card number if mode of payment is "Card"
+        if ("Card".equalsIgnoreCase(transaction.getModeOfPayment())) {
+            boolean isValidCard = cardValidationService.validateCard(transaction.getCardNumber());
+            if (!isValidCard) {
+                System.out.println("Invalid card number");
+                return ResponseEntity.badRequest().body("Invalid card number.");
+            }
+        }
+        // Validate cash payment
+        else if ("Cash".equalsIgnoreCase(transaction.getModeOfPayment())) {
+            // Ensure the amount is greater than or equal to the fare amount
+            double fareAmount = trainStationService.getFareAmountByStationName(transaction.getDestinationName());
+
+            if (transaction.getAmount() < fareAmount) {
+                return ResponseEntity.badRequest().body("Invalid amount. The amount should be greater than or equal to the fare amount.");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Invalid payment method. Please use 'Card' or 'Cash'.");
+        }
+
+        // Proceed to save the transaction if valid
         Transactions savedTransaction = transactionsService.addTransaction(transaction);
-        return ResponseEntity.ok(savedTransaction);
+
+        // Returning the saved transaction in response
+        return ResponseEntity.ok("Transaction successfully added: " + savedTransaction.getTransactionId());
     }
+
 
 
     // Get all transactions

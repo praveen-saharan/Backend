@@ -23,6 +23,9 @@ public class TrainStation {
     @Schema(description = "Fare amount from this station", example = "15.50", required = true)
     private double fareAmount;
 
+    @Schema(description = "Amount of time it will take to reach the destination", example = "30", required=true)
+    private double duration;
+
     // Default constructor
     public TrainStation() {
     }
@@ -59,4 +62,6 @@ public class TrainStation {
     public void setFareAmount(double fareAmount) {
         this.fareAmount = fareAmount;
     }
+
+    public double getDuration(double duration){return duration;}
 }

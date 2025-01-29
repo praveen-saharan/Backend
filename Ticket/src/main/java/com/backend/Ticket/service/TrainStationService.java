@@ -59,4 +59,9 @@ public class TrainStationService {
     public void deleteTrainStation(Long id) {
         trainStationRepository.deleteById(id);
     }
+
+    public String getStationNameById(Long stationId) {
+        TrainStation trainStation = trainStationRepository.findById(stationId).orElse(null);
+        return trainStation != null ? trainStation.getStationName() : "Unknown";
+    }
 }

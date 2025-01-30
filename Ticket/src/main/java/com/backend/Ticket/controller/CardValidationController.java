@@ -16,5 +16,4 @@ public class CardValidationController {
     public boolean validateCard(@RequestParam String cardNumber) {
         return cardValidationService.validateCard(cardNumber);
     }
-
 }

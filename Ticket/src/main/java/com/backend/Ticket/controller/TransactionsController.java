@@ -2,6 +2,7 @@ package com.backend.Ticket.controller;
 
 import com.backend.Ticket.entity.Transactions;
 import com.backend.Ticket.exceptions.RecordNotFoundException;
+import com.backend.Ticket.service.CardValidationService;
 import com.backend.Ticket.service.TrainStationService;
 import com.backend.Ticket.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;

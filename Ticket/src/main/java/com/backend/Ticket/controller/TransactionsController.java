@@ -100,13 +100,6 @@ public class TransactionsController {
     }
 
 
-    // Get transactions by user firstname
-    @GetMapping("/user/{firstname}")
-    public ResponseEntity<List<Transactions>> getTransactionsByUserFirstname(@PathVariable String firstname) {
-        List<Transactions> transactions = transactionsService.getTransactionsByUserFirstname(firstname);
-        return ResponseEntity.ok(transactions);
-    }
-
     // Get transactions by train station ID
     @GetMapping("/trainstation/{trainStationId}")
     public ResponseEntity<List<Transactions>> getTransactionsByTrainStationId(@PathVariable Long trainStationId) {
@@ -124,6 +117,17 @@ public class TransactionsController {
             return ResponseEntity.ok(transactions);
         } catch (DateTimeParseException e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    // Get transactions by user firstname
+    @GetMapping("/user/{firstname}")
+    public ResponseEntity<List<Transactions>> getTransactionsByUserFirstname(@PathVariable String firstname) {
+        try{
+            List<Transactions> transactions = transactionsService.getTransactionsByUserFirstname(firstname);
+            return ResponseEntity.ok(transactions);
+        } catch (RecordNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
         }
     }
 

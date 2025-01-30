@@ -12,4 +12,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleRecordNotFound(RecordNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(com.backend.Ticket.exception.InvalidFileUploadException.class)
+    public ResponseEntity<String> handleInvalidFileUploadException(com.backend.Ticket.exception.InvalidFileUploadException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

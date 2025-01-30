@@ -56,10 +56,6 @@ public class TransactionsService {
         transactionsRepository.deleteById(transactionId);
     }
 
-    // Get all transactions by user firstname
-    public List<Transactions> getTransactionsByUserFirstname(String userFirstname) {
-        return transactionsRepository.findByUserFirstname(userFirstname);
-    }
 
     // Get all transactions by train station ID
     public List<Transactions> getTransactionsByTrainStationId(Long trainStationId) {
@@ -69,6 +65,15 @@ public class TransactionsService {
     // Get all transactions within a date range (custom method)
     public List<Transactions> getTransactionsWithinDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         return transactionsRepository.findByTransactionDateTimeBetween(startDate, endDate);
+    }
+
+    // Get all transactions by user firstname
+    public List<Transactions> getTransactionsByUserFirstname(String userFirstname) {
+        List<Transactions> transactions = transactionsRepository.findByUserFirstname(userFirstname);
+        if (transactions.isEmpty()){
+            throw new RecordNotFoundException("Passenger name " + userFirstname + " not found! Please try another name.");
+        }
+        return transactions;
     }
 
     // Search for transactions by passenger last name

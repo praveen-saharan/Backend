@@ -23,8 +23,11 @@ public class TrainStation {
     @Schema(description = "Fare amount from this station", example = "15.50", required = true)
     private double fareAmount;
 
-    @Schema(description = "Amount of time it will take to reach the destination", example = "30", required=true)
+    @Schema(description = "duration from source to destination in minutes", example = "1.50", required = true)
     private double duration;
+
+    @Schema(description = "name of source station", example = "kawasaki station", required = true)
+    private String sourceStation;
 
     // Default constructor
     public TrainStation() {
@@ -63,5 +66,16 @@ public class TrainStation {
         this.fareAmount = fareAmount;
     }
 
-    public double getDuration(double duration){return duration;}
+    public String getsourceStation() {
+        return sourceStation;
+    }
+
+    public void setSourceStation(String sourceStation) {
+        this.sourceStation= sourceStation;
+    }
+
+    public double getDuration(){return duration;}
+    public void setDuration(double duration){
+        this.duration= duration;
+    }
 }

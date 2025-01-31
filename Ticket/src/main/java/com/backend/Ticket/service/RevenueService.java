@@ -67,9 +67,10 @@ public class RevenueService {
 
             // Add the revenue data to the report list
             Map<String, Object> stationRevenueMap = new HashMap<>();
-            stationRevenueMap.put("Train Station Name", stationName);
-            stationRevenueMap.put("Total Revenue", totalRevenue);
-            stationRevenueMap.put("Total Passengers", totalPassengers);
+            stationRevenueMap.put("trainId", stationId);
+            stationRevenueMap.put("stationName", stationName);
+            stationRevenueMap.put("earnings", totalRevenue);
+            stationRevenueMap.put("totalPassengers", totalPassengers);
 
             revenueReport.add(stationRevenueMap);
         }

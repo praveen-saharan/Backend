@@ -23,7 +23,7 @@ public class RevenueController {
     TransactionsService transactionsService;
 
     // New endpoint to handle calculation, saving, and returning revenue data
-    @PostMapping("/calculate-and-save")
+    @GetMapping("/calculate-and-save")
     public ResponseEntity<?> calculateAndSaveRevenue() {
         try {
             // Call the service method to delete old revenue, calculate new revenue, and save it
